@@ -1,6 +1,6 @@
 # 거래처 탐색 도우미
 
-Streamlit 기반의 하이브리드 규칙/AI 웹 애플리케이션으로, 엑셀 파일에 저장된 거래처 정보를 업로드하고 프롬프트를 입력하면 해당 조건에 맞는 거래처를 빠르게 찾을 수 있습니다. 규칙 기반 점수/태깅에 더해 Hugging Face Router를 통한 `Qwen/Qwen3-4B-Instruct-2507:nscale` 모델로 전략적인 영업 제안을 생성합니다.
+Next.js + FastAPI 기반의 하이브리드 규칙/AI 웹 애플리케이션으로, 엑셀 파일에 저장된 거래처 정보를 업로드하고 프롬프트를 입력하면 해당 조건에 맞는 거래처를 빠르게 찾을 수 있습니다. 규칙 기반 점수/태깅에 더해 Hugging Face Router를 통한 `Qwen/Qwen3-4B-Instruct-2507:nscale` 모델로 전략적인 영업 제안을 생성합니다.
 
 ## 주요 기능
 - 엑셀 파일 업로드 (`.xlsx`, `.xls`)
@@ -11,24 +11,36 @@ Streamlit 기반의 하이브리드 규칙/AI 웹 애플리케이션으로, 엑�
 - 검색 결과를 테이블 형태로 확인 및 엑셀로 다운로드
 
 ## 실행 방법
-1. 필요한 패키지 설치:
+1. Node 패키지 설치:
    ```bash
-   pip install -r requirements.txt
+   npm install
    ```
-2. `.env` 파일 생성 또는 환경 변수 설정:
+2. Python 패키지 설치 (로컬 테스트용):
+   ```bash
+   pip install -r api/requirements.txt
+   ```
+3. `.env` 파일 생성 또는 환경 변수 설정:
    ```bash
    echo "HUGGINGFACE_API_KEY=hf_********************************" > .env
    ```
    (또는 기존 환경 변수 방식으로 `export`/`setx` 명령을 사용해도 됩니다.)
 
-3. 실행:
+4. 개발 서버 실행:
    ```bash
    npm run dev
    ```
-4. 브라우저에서 안내에 따라 파일을 업로드하고, 프롬프트를 입력한 뒤 결과 페이지에서 검색 결과와 AI 전략 제안을 확인하세요.
+   - 최초 실행 시 `vercel` CLI 설치 안내가 나오면 `npm install -g vercel` 또는 `npx vercel login` 후 재실행하세요.
+   - 프론트엔드 및 Python 서버리스 함수가 통합된 로컬 개발 환경이 http://localhost:3000 에서 실행됩니다.
+
+5. 브라우저에서 안내에 따라 파일을 업로드하고, 프롬프트를 입력한 뒤 결과 페이지에서 검색 결과와 AI 전략 제안을 확인하세요.
+
+## Vercel 배포
+- `npm run build` → `next build`로 정적/서버리스 번들을 생성합니다.
+- `api/analyze.py`와 `api/requirements.txt`가 자동으로 Python 서버리스 함수로 배포됩니다.
+- Vercel 프로젝트 환경 변수에 `HUGGINGFACE_API_KEY`를 등록하세요.
 
 ## 규칙 기반 엔진 개요
-- **키워드 가중치**: `main.py`의 `KEYWORD_RULES`에서 태그/키워드/가중치를 조정할 수 있습니다.
+- **키워드 가중치**: `backend/logic.py`의 `KEYWORD_RULES`에서 태그/키워드/가중치를 조정할 수 있습니다.
 - **감성 패턴**: 긍정/중립/부정 키워드에 따라 추가 점수가 반영됩니다.
 - **상담 관련 지표**: `상담횟수`(또는 유사 열명)와 `최근상담일` 정보를 자동 인식해 점수에 반영합니다.
 - **리드 등급**: 점수 70 이상은 Hot, 40~69는 Warm, 그 이하는 Cold로 분류합니다.

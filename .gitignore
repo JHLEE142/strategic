@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Streamlit & cache
+.streamlit/
+streamlit_cache/
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# macOS artifacts
+.DS_Store
+
+# Environment files
+.env
+.env.*
+!env.example
+
+# Excel uploads or data exports
+uploads/
+*.xlsx
+*.xls
+
+# VSCode / IDE
+.vscode/
+.idea/
+

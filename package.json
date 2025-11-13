@@ -1,0 +1,10 @@
+{
+  "name": "strategic",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "python -m streamlit run main.py",
+    "start": "python -m streamlit run main.py"
+  }
+}
+

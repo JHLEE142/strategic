@@ -21,9 +21,9 @@ Streamlit 기반의 하이브리드 규칙/AI 웹 애플리케이션으로, 엑�
    ```
    (또는 기존 환경 변수 방식으로 `export`/`setx` 명령을 사용해도 됩니다.)
 
-3. Streamlit 앱 실행:
+3. 실행:
    ```bash
-   streamlit run main.py
+   npm run dev
    ```
 4. 브라우저에서 안내에 따라 파일을 업로드하고, 프롬프트를 입력한 뒤 결과 페이지에서 검색 결과와 AI 전략 제안을 확인하세요.
 
